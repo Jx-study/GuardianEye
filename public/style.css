@@ -1,0 +1,633 @@
+/* ========== 孟菲斯風格 Memphis Style ========== */
+:root {
+    /* 孟菲斯色票：鮮豔、衝突、80年代感 */
+    --color-magenta: #FF00FF;     /* 亮洋紅 */
+    --color-cyan: #00FFFF;        /* 青色 */
+    --color-yellow: #FFDD00;      /* 亮黃 */
+    --color-black: #000000;       /* 純黑 */
+    --color-white: #FFFFFF;       /* 純白 */
+    --color-red: #FF0000;         /* 警報紅 */
+    --color-green: #00FF00;       /* 霓虹綠 */
+    --color-blue: #0000FF;        /* 電子藍 */
+
+    /* 字體系統 */
+    --font-heading: 'Bebas Neue', 'Impact', 'Arial Black', sans-serif;
+    --font-body: 'Arial', sans-serif;
+
+    /* 無圓角、粗邊框 */
+    --border-width: 4px;
+    --border-radius: 0px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--color-white);
+    background-image:
+        repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,255,255,0.1) 10px, rgba(0,255,255,0.1) 20px),
+        repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,221,0,0.1) 10px, rgba(255,221,0,0.1) 20px);
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--color-black);
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ========== 標題區 ========== */
+header {
+    background: var(--color-yellow);
+    border: var(--border-width) solid var(--color-black);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow:
+        8px 8px 0 var(--color-cyan),
+        16px 16px 0 var(--color-black);
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    font-family: var(--font-heading);
+    font-size: 48px;
+    margin-bottom: 5px;
+    color: var(--color-black);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 900;
+}
+
+.subtitle {
+    color: var(--color-black);
+    font-size: 14px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--color-black);
+    font-weight: bold;
+}
+
+.status-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 0;
+    display: inline-block;
+    border: 2px solid var(--color-black);
+}
+
+.status-dot.online {
+    background: var(--color-green);
+}
+
+.status-dot.offline {
+    background: var(--color-red);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 1; }
+}
+
+/* ========== Tab 導航 ========== */
+.tab-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 15px;
+    background: var(--color-white);
+    border: var(--border-width) solid var(--color-black);
+    border-radius: var(--border-radius);
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--color-black);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: 3px 3px 0 var(--color-black);
+}
+
+.tab-btn:nth-child(1) {
+    background: var(--color-cyan);
+}
+
+.tab-btn:nth-child(2) {
+    background: var(--color-yellow);
+}
+
+.tab-btn:nth-child(3) {
+    background: var(--color-magenta);
+    color: var(--color-white);
+}
+
+.tab-btn:nth-child(4) {
+    background: var(--color-green);
+}
+
+.tab-btn:hover {
+    background: var(--color-red);
+    color: var(--color-white);
+}
+
+.tab-btn.active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+
+.tab-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+
+/* ========== Tab 內容 ========== */
+.tab-content {
+    position: relative;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* ========== 卡片樣式 ========== */
+.card {
+    background: var(--color-white);
+    border: var(--border-width) solid var(--color-black);
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.alarm-card {
+    box-shadow:
+        6px 6px 0 var(--color-cyan),
+        12px 12px 0 var(--color-black);
+}
+
+.unlock-card {
+    box-shadow:
+        6px 6px 0 var(--color-yellow),
+        12px 12px 0 var(--color-black);
+}
+
+.control-card {
+    box-shadow:
+        6px 6px 0 var(--color-green),
+        12px 12px 0 var(--color-black);
+}
+
+.history-card {
+    box-shadow:
+        6px 6px 0 var(--color-magenta),
+        12px 12px 0 var(--color-black);
+}
+
+.card-header {
+    background: var(--color-black);
+    color: var(--color-white);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--border-width) solid var(--color-black);
+}
+
+.card-header h2 {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* ========== 警報狀態 ========== */
+.status-normal,
+.status-alert {
+    text-align: center;
+    padding: 20px;
+    border: 3px dashed var(--color-black);
+    background: var(--color-white);
+}
+
+.status-icon {
+    font-size: 64px;
+    margin-bottom: 10px;
+}
+
+.status-icon i {
+    color: var(--color-green);
+}
+
+.status-icon.warning i {
+    color: var(--color-red);
+    animation: shake 0.3s infinite;
+}
+
+.status-icon.success {
+    font-size: 80px;
+}
+
+.status-icon.success i {
+    color: var(--color-green);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    25% { transform: translateX(-8px) rotate(-5deg); }
+    75% { transform: translateX(8px) rotate(5deg); }
+}
+
+.status-text {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: var(--color-black);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.status-alert .status-text {
+    color: var(--color-red);
+}
+
+.status-subtext {
+    font-size: 14px;
+    color: var(--color-black);
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+/* ========== 解鎖表單 ========== */
+.instruction {
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--color-black);
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 12px 15px;
+    border: var(--border-width) solid var(--color-black);
+    border-radius: var(--border-radius);
+    font-size: 18px;
+    font-weight: bold;
+    background: var(--color-white);
+    color: var(--color-black);
+}
+
+.input-group input:focus {
+    outline: none;
+    background: var(--color-cyan);
+    border-color: var(--color-black);
+}
+
+/* ========== 按鈕樣式 ========== */
+.btn {
+    width: 100%;
+    padding: 15px 20px;
+    border: var(--border-width) solid var(--color-black);
+    border-radius: var(--border-radius);
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    background: var(--color-magenta);
+    color: var(--color-white);
+    box-shadow:
+        4px 4px 0 var(--color-black);
+}
+
+.btn-primary:hover {
+    background: var(--color-yellow);
+    color: var(--color-black);
+}
+
+.btn-primary:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+}
+
+.btn-primary:disabled {
+    background: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-icon {
+    background: var(--color-white);
+    border: 2px solid var(--color-black);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px 12px;
+    color: var(--color-black);
+}
+
+.btn-icon:hover {
+    background: var(--color-yellow);
+    color: var(--color-black);
+}
+
+.btn-icon:active {
+    transform: translate(2px, 2px);
+}
+
+/* 卡片標題中的按鈕圖示（白色背景改成透明） */
+.card-header .btn-icon {
+    background: transparent;
+    border-color: var(--color-white);
+    color: var(--color-white);
+}
+
+/* ========== 控制按鈕 ========== */
+.control-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.btn-control {
+    padding: 18px;
+    background: var(--color-white);
+    color: var(--color-black);
+    border: var(--border-width) solid var(--color-black);
+    border-radius: var(--border-radius);
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-transform: uppercase;
+    box-shadow:
+        3px 3px 0 var(--color-black);
+}
+
+.btn-control:nth-child(1) {
+    background: var(--color-cyan);
+}
+
+.btn-control:nth-child(2) {
+    background: var(--color-yellow);
+}
+
+.btn-control:nth-child(3) {
+    background: var(--color-magenta);
+    color: var(--color-white);
+}
+
+.btn-control:nth-child(4) {
+    background: var(--color-green);
+}
+
+.btn-control:hover {
+    background: var(--color-red);
+    color: var(--color-white);
+}
+
+.btn-control:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+
+/* ========== 訊息區 ========== */
+.message {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    display: none;
+    border: var(--border-width) solid var(--color-black);
+    text-transform: uppercase;
+}
+
+.message.show {
+    display: block;
+}
+
+.message.success {
+    background: var(--color-green);
+    color: var(--color-black);
+}
+
+.message.error {
+    background: var(--color-red);
+    color: var(--color-white);
+}
+
+.message.info {
+    background: var(--color-cyan);
+    color: var(--color-black);
+}
+
+/* ========== 歷史記錄 ========== */
+.history-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: 12px;
+    border-bottom: 3px solid var(--color-black);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-white);
+}
+
+.history-item:hover {
+    background: var(--color-yellow);
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-info {
+    flex: 1;
+}
+
+.history-time {
+    font-size: 12px;
+    color: var(--color-black);
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+.history-event {
+    font-size: 14px;
+    color: var(--color-black);
+    font-weight: bold;
+}
+
+.history-status {
+    padding: 6px 12px;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--color-black);
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.history-status.success {
+    background: var(--color-green);
+    color: var(--color-black);
+}
+
+.history-status.failed {
+    background: var(--color-red);
+    color: var(--color-white);
+}
+
+.history-status.normal {
+    background: var(--color-cyan);
+    color: var(--color-black);
+}
+
+.loading {
+    text-align: center;
+    color: var(--color-black);
+    padding: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* ========== 系統資訊 ========== */
+.system-info {
+    background: var(--color-white);
+    border: var(--border-width) solid var(--color-black);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--color-black);
+    box-shadow:
+        4px 4px 0 var(--color-yellow),
+        8px 8px 0 var(--color-black);
+}
+
+.system-info p {
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.system-info span {
+    font-weight: 900;
+    color: var(--color-magenta);
+}
+
+/* ========== 響應式設計 ========== */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    .card-header h2 {
+        font-size: 16px;
+    }
+
+    .control-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-control {
+        padding: 12px;
+        font-size: 13px;
+    }
+}
+
+/* ========== 動畫效果 ========== */
+.fade-in {
+    animation: fadeIn 0.1s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ========== 滾動條樣式 ========== */
+.history-list::-webkit-scrollbar {
+    width: 10px;
+}
+
+.history-list::-webkit-scrollbar-track {
+    background: var(--color-black);
+    border-radius: var(--border-radius);
+}
+
+.history-list::-webkit-scrollbar-thumb {
+    background: var(--color-magenta);
+    border: 2px solid var(--color-black);
+    border-radius: var(--border-radius);
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+    background: var(--color-yellow);
+}

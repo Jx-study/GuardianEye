@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardian Eye - 遠端控制</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 標題區 -->
+        <header>
+            <h1>Guardian Eye</h1>
+            <p class="subtitle">遠端控制系統</p>
+            <div class="status-bar">
+                <span id="connection-status" class="status-dot offline"></span>
+                <span id="server-time">--:--:--</span>
+            </div>
+        </header>
+
+        <!-- Tab 導航 -->
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="status">
+                狀態
+            </button>
+            <button class="tab-btn" data-tab="unlock">
+                解鎖
+            </button>
+            <button class="tab-btn" data-tab="control">
+                控制
+            </button>
+            <button class="tab-btn" data-tab="history">
+                記錄
+            </button>
+        </div>
+
+        <!-- Tab 內容區域 -->
+        <div class="tab-content">
+            <!-- 狀態頁面 -->
+            <div id="tab-status" class="tab-pane active">
+                <!-- 警報狀態卡片 -->
+                <section class="card alarm-card" id="alarm-section">
+            <div class="card-header">
+                <h2><i class="fas fa-bell"></i> 警報狀態</h2>
+            </div>
+            <div class="card-body">
+                <div id="alarm-status-normal" class="status-normal">
+                    <div class="status-icon"><i class="fas fa-check-circle"></i></div>
+                    <p class="status-text">系統正常</p>
+                    <p class="status-subtext">無異常活動</p>
+                </div>
+
+                <div id="alarm-status-active" class="status-alert" style="display: none;">
+                    <div class="status-icon warning"><i class="fas fa-exclamation-triangle"></i></div>
+                    <p class="status-text" id="alarm-type-text">偵測到入侵！</p>
+                    <p class="status-subtext" id="alarm-time-text">觸發時間：--</p>
+                    <p class="status-subtext" id="alarm-confidence-text">信心度：--</p>
+                </div>
+            </div>
+        </section>
+            </div>
+
+            <!-- 解鎖頁面 -->
+            <div id="tab-unlock" class="tab-pane">
+                <!-- 解鎖控制卡片 -->
+                <section class="card unlock-card">
+            <div class="card-header">
+                <h2><i class="fas fa-unlock"></i> 遠端解鎖</h2>
+            </div>
+            <div class="card-body">
+                <div id="unlock-form">
+                    <p class="instruction">請輸入遠端解鎖密碼</p>
+                    <div class="input-group">
+                        <input
+                            type="password"
+                            id="password-input"
+                            placeholder="請輸入密碼"
+                            maxlength="20"
+                        >
+                        <button id="toggle-password" class="btn-icon" type="button"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <button id="unlock-btn" class="btn btn-primary"><i class="fas fa-unlock"></i> 解鎖</button>
+                    <div id="unlock-message" class="message"></div>
+                </div>
+
+                <div id="unlock-success" style="display: none;">
+                    <div class="status-icon success"><i class="fas fa-check-circle"></i></div>
+                    <p class="status-text">遠端驗證通過！</p>
+                    <p class="status-subtext">請回家輸入現場隨機密碼</p>
+                </div>
+            </div>
+        </section>
+            </div>
+
+            <!-- 控制頁面 -->
+            <div id="tab-control" class="tab-pane">
+                <!-- 快速控制卡片 -->
+                <section class="card control-card">
+            <div class="card-header">
+                <h2><i class="fas fa-cog"></i> 快速控制</h2>
+            </div>
+            <div class="card-body">
+                <div class="control-buttons">
+                    <button class="btn btn-control" data-action="mute_alarm">
+                        <i class="fas fa-volume-mute"></i> 靜音警報
+                    </button>
+                    <button class="btn btn-control" data-action="open_door">
+                        <i class="fas fa-door-open"></i> 強制開門
+                    </button>
+                    <button class="btn btn-control" data-action="reset">
+                        <i class="fas fa-sync-alt"></i> 重置系統
+                    </button>
+                    <button class="btn btn-control" data-action="test_alarm">
+                        <i class="fas fa-vial"></i> 測試警報
+                    </button>
+                </div>
+                <div id="control-message" class="message"></div>
+            </div>
+        </section>
+            </div>
+
+            <!-- 歷史記錄頁面 -->
+            <div id="tab-history" class="tab-pane">
+                <!-- 歷史記錄卡片 -->
+                <section class="card history-card">
+            <div class="card-header">
+                <h2><i class="fas fa-history"></i> 歷史記錄</h2>
+                <button id="refresh-history" class="btn-icon"><i class="fas fa-sync-alt"></i></button>
+            </div>
+            <div class="card-body">
+                <div id="history-list" class="history-list">
+                    <p class="loading">載入中...</p>
+                </div>
+            </div>
+        </section>
+            </div>
+        </div>
+
+        <!-- 系統資訊 -->
+        <footer class="system-info">
+            <p>系統運行時間: <span id="uptime">--</span></p>
+            <p>最後更新: <span id="last-update">--</span></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
